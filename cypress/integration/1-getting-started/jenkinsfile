@@ -1,0 +1,40 @@
+/* groovylint-disable Indentation */
+pipeline {
+  agent any
+
+  parameters {
+    string (name: 'SPEC', defaultValue: 'cypress/integration/**/**', description: 'Path of test files')
+    choice(name:'BROWSER', choices: ['chrome'], description:'Browser you want to execute the scripts')
+  }
+    options {
+      ansiColor('xterm')
+    }
+  
+    stages {
+      stage('build') {
+             steps  {
+        echo "Building the project"
+               }
+      }
+      stage('testing') {
+        steps {
+                git branch: 'main', credentialsId: 'd704f9b5-3789-43b3-a964-92c4f030caf5', url: 'https://gitlab.com/parasu1/cypress'
+
+          bat label: 'Install NPM package', script: 'npm install'
+          bat label: 'Install Cypress', script: 'npm install cypress'
+          bat label: 'Run Test' , script: 'npx cypress run -- browser ${BROWSER} --spec ${SPEC}'
+        }
+      }
+        stage('Deploying') {
+         steps {
+          echo 'Deploying the changes'
+          }
+        }
+    }
+        post {
+          always {
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'cypress/report', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+          }
+  }
+}
+

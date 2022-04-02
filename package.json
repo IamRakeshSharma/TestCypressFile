@@ -5,7 +5,5 @@
   "scripts": {
     "test": "node_modules\\.bin\\cypress run"
   },
-  "dependencies": {
-    "crypto-js": "^4.1.1"
-  }
+  "dependencies": {}
 }

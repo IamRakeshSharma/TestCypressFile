@@ -18,7 +18,7 @@ pipeline {
       }
       stage('testing') {
         steps {
-                git branch: 'main', credentialsId: 'd704f9b5-3789-43b3-a964-92c4f030caf5', url: 'https://gitlab.com/parasu1/cypress'
+                git branch: 'main', git credentialsId: 'bcb25b1f-6ff6-4341-be91-3de8d3ad0ec5' , url: 'https://github.com/IamRakeshSharma/CypressTest'
 
           bat label: 'Install NPM package', script: 'npm install'
           bat label: 'Install Cypress', script: 'npm install cypress'

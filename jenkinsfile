@@ -19,7 +19,7 @@ pipeline {
       stage('testing') {
         steps {
                 git branch: 'main', credentialsId: 'bcb25b1f-6ff6-4341-be91-3de8d3ad0ec5' , url: 'https://github.com/IamRakeshSharma/CypressTest'
-          bat label:'clean node'm script:'npm cache clean --force'
+          bat label:'clean node' script:'npm cache clean --force'
           bat label: 'Install NPM package', script: 'npm install'
           bat label: 'Install Cypress', script: 'npm install cypress'
           bat label: 'Run Test' , script: 'npx cypress run -- browser ${BROWSER} --spec ${SPEC}'
